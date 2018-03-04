@@ -302,7 +302,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Support Tickets
+                        Products
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -327,7 +327,7 @@
                                 <td>Dec 20th, 2017</td>
                                 <td>Dec 31st, 2017</td>
                                 <td>On Sale</td>
-                                <td>16597.00</td>
+                                <td>17597.00</td>
                                 <th></th>
                             </tr>
                             <tr class="even gradeC">
@@ -337,7 +337,7 @@
                                 <td>Dec 20th, 2017</td>
                                 <td>Dec 31st, 2017</td>
                                 <td>On Sale</td>
-                                <td>12597.00</td>
+                                <td>13597.00</td>
                                 <th></th>
                             </tr>
                             <tr class="odd gradeA">
@@ -346,8 +346,8 @@
                                 <td>15597.00</td>
                                 <td>Jan 1st, 2017</td>
                                 <td>Dec 31st, 2017</td>
-                                <td></td>
-                                <td></td>
+                                <td>Regular Price</td>
+                                <td>N/A</td>
                                 <th></th>
                             </tr>
                             <tr class="even gradeA">
@@ -356,8 +356,8 @@
                                 <td>11597.00</td>
                                 <td>Jan 1st, 2017</td>
                                 <td>Dec 31st, 2017</td>
-                                <td></td>
-                                <td></td>
+                                <td>Regular Price</td>
+                                <td>N/A</td>
                                 <th></th>
                             </tr>
                             </tbody>
@@ -380,46 +380,24 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Price Change Form
+                        Add new Product
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">                              
-                                <h1>Change Price</h1>
-                                <form role="form">
-                                    <div class="form-group">
-                                        <label>Set new price</label>
-                                        <input class="form-control">
-                                        <p class="help-block">Enter numbers with 2 decimal places. e.g. 1000.00</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>New price start date</label>
-                                        <input class="form-control">
-                                        <p class="help-block">Enter word "Today" or a date in format - e.g "Dec 1st, 2017"</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>New price end date</label>
-                                        <input class="form-control">
-                                        <p class="help-block">Enter word "Always" or a date in format - e.g "Dec 1st, 2017"</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Change promotion badge</label>
-                                        <input class="form-control">
-                                        <p class="help-block">e.g. "On Sale!"</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Reasons for change</label>
-                                        <input class="form-control">
-                                        <p class="help-block">e.g. "End of year sale"</p>
-                                    </div>
-                                </form>
-                            </div>
                             <!-- /.col-lg-6 (nested) -->
                             <div class="col-lg-6">
-                                <h1>Add New Product</h1>
                                 <form role="form">
                                     <div class="form-group">
-                                        <label>Add product price</label>
+                                        <label>Product Name</label>
+                                        <input class="form-control">
+                                        <p class="help-block">Enter the name of the product</p> </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Photo</label>
+                                        <input type="file">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product price</label>
                                         <input class="form-control">
                                         <p class="help-block">Enter numbers with 2 decimal places. e.g. 1000.00</p> </p>
                                     </div>
@@ -443,7 +421,7 @@
                                         <input class="form-control">
                                         <p class="help-block">e.g. "End of year sale"</p>
                                     </div>
-                                    <button type="submit" class="btn btn-default">Done</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                                     <button type="reset" class="btn btn-default">Cancel</button>
                                 </form>
                             </div>
@@ -477,14 +455,29 @@
 <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
 <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="../dist/js/sb-admin-2.js"></script>
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
+    $.fn.dataTable.ext.buttons.alert = {
+        className: 'btn btn-primary btn-sm',
+        defaultContent: '',
+
+        action: function ( e, dt, node, config ) {
+            alert( this.text() );
+        }
+    };
     $(document).ready(function() {
-        var table = $('#dataTables-example').DataTable({
+        $('#dataTables-example').DataTable({
+            // dom: 'Bfrtip',
+            // buttons: [
+            //     {
+            //         extend: 'alert',
+            //         text: 'Add New Product'
+            //     }
+            // ],
             responsive: true,
             "columnDefs": [ {
                 "targets": -1,
@@ -500,209 +493,40 @@
                 "        <div class=\"modal-content\">\n" +
                 "            <div class=\"modal-header\">\n" +
                 "                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n" +
-                "                <h4 class=\"modal-title\" id=\"myModalLabel\">Ticket Details</h4>\n" +
+                "                <h4 class=\"modal-title\" id=\"myModalLabel\">Price Change Request</h4>\n" +
                 "            </div>\n" +
                 "            <div class=\"modal-body\">\n" +
-                "        <!-- /.row -->\n" +
-                "        <div class=\"row\">\n" +
-                "            <div class=\"col-lg-12\">\n" +
-                "                <div class=\"panel panel-default\">\n" +
-                "                    <div class=\"panel-heading\">\n" +
-                "                        Basic Form Elements\n" +
-                "                    </div>\n" +
-                "                    <div class=\"panel-body\">\n" +
-                "                        <div class=\"row\">\n" +
-                "                            <div class=\"col-lg-6\">\n" +
                 "                                <form role=\"form\">\n" +
                 "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Text Input</label>\n" +
+                "                                        <label>Set new price</label>\n" +
                 "                                        <input class=\"form-control\">\n" +
-                "                                        <p class=\"help-block\">Example block-level help text here.</p>\n" +
+                "                                        <p class=\"help-block\">Enter numbers with 2 decimal places. e.g. 1000.00</p>\n" +
                 "                                    </div>\n" +
                 "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Text Input with Placeholder</label>\n" +
-                "                                        <input class=\"form-control\" placeholder=\"Enter text\">\n" +
+                "                                        <label>New price start date</label>\n" +
+                "                                        <input class=\"form-control\">\n" +
+                "                                        <p class=\"help-block\">Enter word \"Today\" or a date in format - e.g \"Dec 1st, 2017\"</p>\n" +
                 "                                    </div>\n" +
                 "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Static Control</label>\n" +
-                "                                        <p class=\"form-control-static\">email@uwaterloo.ca</p>\n" +
+                "                                        <label>New price end date</label>\n" +
+                "                                        <input class=\"form-control\">\n" +
+                "                                        <p class=\"help-block\">Enter word \"Always\" or a date in format - e.g \"Dec 1st, 2017\"</p>\n" +
                 "                                    </div>\n" +
                 "                                    <div class=\"form-group\">\n" +
-                "                                        <label>File input</label>\n" +
-                "                                        <input type=\"file\">\n" +
+                "                                        <label>Change promotion badge</label>\n" +
+                "                                        <input class=\"form-control\">\n" +
+                "                                        <p class=\"help-block\">e.g. \"On Sale!\"</p>\n" +
                 "                                    </div>\n" +
                 "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Text area</label>\n" +
-                "                                        <textarea class=\"form-control\" rows=\"3\"></textarea>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Checkboxes</label>\n" +
-                "                                        <div class=\"checkbox\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"checkbox\" value=\"\">Checkbox 1\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                        <div class=\"checkbox\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"checkbox\" value=\"\">Checkbox 2\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                        <div class=\"checkbox\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"checkbox\" value=\"\">Checkbox 3\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Inline Checkboxes</label>\n" +
-                "                                        <label class=\"checkbox-inline\">\n" +
-                "                                            <input type=\"checkbox\">1\n" +
-                "                                        </label>\n" +
-                "                                        <label class=\"checkbox-inline\">\n" +
-                "                                            <input type=\"checkbox\">2\n" +
-                "                                        </label>\n" +
-                "                                        <label class=\"checkbox-inline\">\n" +
-                "                                            <input type=\"checkbox\">3\n" +
-                "                                        </label>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Radio Buttons</label>\n" +
-                "                                        <div class=\"radio\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios1\" value=\"option1\" checked>Radio 1\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                        <div class=\"radio\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios2\" value=\"option2\">Radio 2\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                        <div class=\"radio\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios3\" value=\"option3\">Radio 3\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Inline Radio Buttons</label>\n" +
-                "                                        <label class=\"radio-inline\">\n" +
-                "                                            <input type=\"radio\" name=\"optionsRadiosInline\" id=\"optionsRadiosInline1\" value=\"option1\" checked>1\n" +
-                "                                        </label>\n" +
-                "                                        <label class=\"radio-inline\">\n" +
-                "                                            <input type=\"radio\" name=\"optionsRadiosInline\" id=\"optionsRadiosInline2\" value=\"option2\">2\n" +
-                "                                        </label>\n" +
-                "                                        <label class=\"radio-inline\">\n" +
-                "                                            <input type=\"radio\" name=\"optionsRadiosInline\" id=\"optionsRadiosInline3\" value=\"option3\">3\n" +
-                "                                        </label>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Selects</label>\n" +
-                "                                        <select class=\"form-control\">\n" +
-                "                                            <option>1</option>\n" +
-                "                                            <option>2</option>\n" +
-                "                                            <option>3</option>\n" +
-                "                                            <option>4</option>\n" +
-                "                                            <option>5</option>\n" +
-                "                                        </select>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group\">\n" +
-                "                                        <label>Multiple Selects</label>\n" +
-                "                                        <select multiple class=\"form-control\">\n" +
-                "                                            <option>1</option>\n" +
-                "                                            <option>2</option>\n" +
-                "                                            <option>3</option>\n" +
-                "                                            <option>4</option>\n" +
-                "                                            <option>5</option>\n" +
-                "                                        </select>\n" +
-                "                                    </div>\n" +
-                "                                    <button type=\"submit\" class=\"btn btn-default\">Submit Button</button>\n" +
-                "                                    <button type=\"reset\" class=\"btn btn-default\">Reset Button</button>\n" +
-                "                                </form>\n" +
-                "                            </div>\n" +
-                "                            <!-- /.col-lg-6 (nested) -->\n" +
-                "                            <div class=\"col-lg-6\">\n" +
-                "                                <h1>Disabled Form States</h1>\n" +
-                "                                <form role=\"form\">\n" +
-                "                                    <fieldset enabled>\n" +
-                "                                        <div class=\"form-group\">\n" +
-                "                                            <label for=\"disabledSelect\">Disabled input</label>\n" +
-                "                                            <input class=\"form-control\" id=\"disabledInput\" type=\"text\" placeholder=\"Disabled input\" disabled>\n" +
-                "                                        </div>\n" +
-                "                                        <div class=\"form-group\">\n" +
-                "                                            <label for=\"disabledSelect\">Disabled select menu</label>\n" +
-                "                                            <select id=\"disabledSelect\" class=\"form-control\">\n" +
-                "                                                <option>Disabled select</option>\n" +
-                "                                                <option>Disabled select</option>\n" +
-                "                                                <option>Disabled select</option>\n" +
-                "                                            </select>\n" +
-                "                                        </div>\n" +
-                "                                        <div class=\"checkbox\">\n" +
-                "                                            <label>\n" +
-                "                                                <input type=\"checkbox\">Disabled Checkbox\n" +
-                "                                            </label>\n" +
-                "                                        </div>\n" +
-                "                                        <button type=\"submit\" class=\"btn btn-primary\">Disabled Button</button>\n" +
-                "                                    </fieldset>\n" +
-                "                                </form>\n" +
-                "                                <h1>Form Validation States</h1>\n" +
-                "                                <form role=\"form\">\n" +
-                "                                    <div class=\"form-group has-success\">\n" +
-                "                                        <label class=\"control-label\" for=\"inputSuccess\">Input with success</label>\n" +
-                "                                        <input type=\"text\" class=\"form-control\" id=\"inputSuccess\">\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group has-warning\">\n" +
-                "                                        <label class=\"control-label\" for=\"inputWarning\">Input with warning</label>\n" +
-                "                                        <input type=\"text\" class=\"form-control\" id=\"inputWarning\">\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group has-error\">\n" +
-                "                                        <label class=\"control-label\" for=\"inputError\">Input with error</label>\n" +
-                "                                        <input type=\"text\" class=\"form-control\" id=\"inputError\">\n" +
+                "                                        <label>Reasons for change</label>\n" +
+                "                                        <input class=\"form-control\">\n" +
+                "                                        <p class=\"help-block\">e.g. \"End of year sale\"</p>\n" +
                 "                                    </div>\n" +
                 "                                </form>\n" +
-                "                                <h1>Input Groups</h1>\n" +
-                "                                <form role=\"form\">\n" +
-                "                                    <div class=\"form-group input-group\">\n" +
-                "                                        <span class=\"input-group-addon\">@</span>\n" +
-                "                                        <input type=\"text\" class=\"form-control\" placeholder=\"Username\">\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group input-group\">\n" +
-                "                                        <input type=\"text\" class=\"form-control\">\n" +
-                "                                        <span class=\"input-group-addon\">.00</span>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group input-group\">\n" +
-                "                                            <span class=\"input-group-addon\"><i class=\"fa fa-eur\"></i>\n" +
-                "                                            </span>\n" +
-                "                                        <input type=\"text\" class=\"form-control\" placeholder=\"Font Awesome Icon\">\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group input-group\">\n" +
-                "                                        <span class=\"input-group-addon\">$</span>\n" +
-                "                                        <input type=\"text\" class=\"form-control\">\n" +
-                "                                        <span class=\"input-group-addon\">.00</span>\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"form-group input-group\">\n" +
-                "                                        <input type=\"text\" class=\"form-control\">\n" +
-                "                                        <span class=\"input-group-btn\">\n" +
-                "                                                <button class=\"btn btn-default\" type=\"button\"><i class=\"fa fa-search\"></i>\n" +
-                "                                                </button>\n" +
-                "                                            </span>\n" +
-                "                                    </div>\n" +
-                "                                </form>\n" +
-                "                            </div>\n" +
-                "                            <!-- /.col-lg-6 (nested) -->\n" +
-                "                        </div>\n" +
-                "                        <!-- /.row (nested) -->\n" +
-                "                    </div>\n" +
-                "                    <!-- /.panel-body -->\n" +
-                "                </div>\n" +
-                "                <!-- /.panel -->\n" +
-                "            </div>\n" +
-                "            <!-- /.col-lg-12 -->\n" +
-                "        </div>\n" +
-                "        <!-- /.row -->\n" +
-                "            </div>\n" +
                 "            <div class=\"modal-footer\">\n" +
                 "                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n" +
                 "                <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n" +
+                "            </div>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
                 "        <!-- /.modal-content -->\n" +
